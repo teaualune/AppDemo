@@ -36,6 +36,7 @@ static User *userSingleton;
     self = [super init];
     if (self) {
         _knownNotValidated = NO;
+        _account = nil;
     }
     return self;
 }
@@ -57,6 +58,7 @@ static User *userSingleton;
         } else {
             switch (statusCode) {
                 case 200:{
+                    _account = account;
                     [self.loginDelegate loginDidSucceed];
                     break;
                 }
@@ -65,6 +67,7 @@ static User *userSingleton;
                     break;
                 }
                 case 506:{
+                    _account = account;
                     [self.loginDelegate loginDidNeedValidate];
                     break;
                 }
@@ -79,6 +82,7 @@ static User *userSingleton;
 - (void)logout
 {
     _knownNotValidated = NO;
+    _account = nil;
 }
 
 - (void)validate: (NSString *)code

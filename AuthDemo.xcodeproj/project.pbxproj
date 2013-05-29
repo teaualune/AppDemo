@@ -30,6 +30,8 @@
 		E4CC27F5172F6EE0009BED06 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC27EB172F6EE0009BED06 /* AFXMLRequestOperation.m */; };
 		E4CC27F6172F6EE0009BED06 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC27ED172F6EE0009BED06 /* UIImageView+AFNetworking.m */; };
 		E65141191756315600DBB0C8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E65141181756315600DBB0C8 /* User.m */; };
+		E651411C1756568700DBB0C8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = E651411B1756568700DBB0C8 /* Message.m */; };
+		E651411F175657AD00DBB0C8 /* MessageBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = E651411E175657AD00DBB0C8 /* MessageBoard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,10 @@
 		E4CC27ED172F6EE0009BED06 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		E65141171756315600DBB0C8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		E65141181756315600DBB0C8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		E651411A1756568700DBB0C8 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		E651411B1756568700DBB0C8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		E651411D175657AD00DBB0C8 /* MessageBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBoard.h; sourceTree = "<group>"; };
+		E651411E175657AD00DBB0C8 /* MessageBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageBoard.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +181,10 @@
 		E65141151756313800DBB0C8 /* message */ = {
 			isa = PBXGroup;
 			children = (
+				E651411A1756568700DBB0C8 /* Message.h */,
+				E651411B1756568700DBB0C8 /* Message.m */,
+				E651411D175657AD00DBB0C8 /* MessageBoard.h */,
+				E651411E175657AD00DBB0C8 /* MessageBoard.m */,
 			);
 			name = message;
 			sourceTree = "<group>";
@@ -282,6 +292,8 @@
 				E4CC27F5172F6EE0009BED06 /* AFXMLRequestOperation.m in Sources */,
 				E4CC27F6172F6EE0009BED06 /* UIImageView+AFNetworking.m in Sources */,
 				E65141191756315600DBB0C8 /* User.m in Sources */,
+				E651411C1756568700DBB0C8 /* Message.m in Sources */,
+				E651411F175657AD00DBB0C8 /* MessageBoard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
