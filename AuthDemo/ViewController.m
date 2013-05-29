@@ -20,8 +20,12 @@
 @implementation ViewController
 -(void) queryLoggedMessage{
     NSURL * queryURL = [NSURL URLWithString:[AWSServer stringByAppendingFormat:@"/api/posts"]];
-    NSURLRequest * request = [NSURLRequest requestWithURL:queryURL];
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:queryURL];
+    [request setAllHTTPHeaderFields:@{
+     @"Cookie": [[@"connect.sid=" stringByAppendingString: self.apikey] stringByAppendingString:@";"]
+     }];
     AFJSONRequestOperation * operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"%d", response.statusCode);
         NSLog(@"JSON Data %@", JSON);
         if (JSON != nil) {
             NSArray * listData = JSON;
@@ -85,9 +89,9 @@
     
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (cookie in [cookieJar cookies]) {
-        NSLog(@"%@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
+        NSLog(@"cookie: %@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
         
-        if ([cookie.name isEqualToString:@"apikey"]) {
+        if ([cookie.name isEqualToString:@"connect.sid"]) {
             if ([cookie.expiresDate timeIntervalSinceDate:[NSDate date]] <0 ) {
                 NSLog(@"cookie expired");
                 [cookieJar deleteCookie:cookie];

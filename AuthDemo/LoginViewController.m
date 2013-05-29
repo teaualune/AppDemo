@@ -72,6 +72,7 @@
             NSLog(@"Login error %@", error);
         }else{
             NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *) response;
+            NSLog(@"%@", httpResponse.allHeaderFields);
             NSLog(@"status %d", httpResponse.statusCode);
             NSInteger statusCode = httpResponse.statusCode;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -90,6 +91,11 @@
                     }
                     default:
                         break;
+                }
+                NSHTTPCookie *cookie;
+                NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                for (cookie in [cookieJar cookies]) {
+                    NSLog(@"cookie (remoteLogin): %@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
                 }
             });
 
@@ -114,6 +120,11 @@
 }
 - (IBAction)login:(id)sender {
     [self remoteLogin];
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [cookieJar cookies]) {
+        NSLog(@"cookie (login): %@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
+    }
 }
 - (IBAction)validateCode:(id)sender {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Validate" message:@"Please enter validation code" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];

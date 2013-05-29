@@ -29,6 +29,7 @@
 		E4CC27F4172F6EE0009BED06 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC27E9172F6EE0009BED06 /* AFURLConnectionOperation.m */; };
 		E4CC27F5172F6EE0009BED06 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC27EB172F6EE0009BED06 /* AFXMLRequestOperation.m */; };
 		E4CC27F6172F6EE0009BED06 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC27ED172F6EE0009BED06 /* UIImageView+AFNetworking.m */; };
+		E65141191756315600DBB0C8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E65141181756315600DBB0C8 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,8 @@
 		E4CC27EB172F6EE0009BED06 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		E4CC27EC172F6EE0009BED06 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		E4CC27ED172F6EE0009BED06 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		E65141171756315600DBB0C8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		E65141181756315600DBB0C8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 		E4CC27B7172F5ACA009BED06 /* AuthDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E65141161756314300DBB0C8 /* account */,
+				E65141151756313800DBB0C8 /* message */,
 				E4CC27C0172F5ACA009BED06 /* AppDelegate.h */,
 				E4CC27C1172F5ACA009BED06 /* AppDelegate.m */,
 				E4CC27C9172F5ACA009BED06 /* MainStoryboard.storyboard */,
@@ -165,6 +170,22 @@
 				E4CC27ED172F6EE0009BED06 /* UIImageView+AFNetworking.m */,
 			);
 			name = AFNetworking;
+			sourceTree = "<group>";
+		};
+		E65141151756313800DBB0C8 /* message */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = message;
+			sourceTree = "<group>";
+		};
+		E65141161756314300DBB0C8 /* account */ = {
+			isa = PBXGroup;
+			children = (
+				E65141171756315600DBB0C8 /* User.h */,
+				E65141181756315600DBB0C8 /* User.m */,
+			);
+			name = account;
 			sourceTree = "<group>";
 		};
 		E6858BF2175491F300CB7F4E /* controllers */ = {
@@ -260,6 +281,7 @@
 				E4CC27F4172F6EE0009BED06 /* AFURLConnectionOperation.m in Sources */,
 				E4CC27F5172F6EE0009BED06 /* AFXMLRequestOperation.m in Sources */,
 				E4CC27F6172F6EE0009BED06 /* UIImageView+AFNetworking.m in Sources */,
+				E65141191756315600DBB0C8 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
