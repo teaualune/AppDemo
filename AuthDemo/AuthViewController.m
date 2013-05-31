@@ -9,6 +9,8 @@
 #import "AuthViewController.h"
 #import "AFNetworking.h"
 
+#import "User.h"
+
 
 @interface AuthViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *editingScrollView;
@@ -60,29 +62,30 @@
 }
 
 -(void) remoteSignUp{
-    NSLog(@"sign up");
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSURL *url = [NSURL URLWithString:[AWSServer stringByAppendingString:@"/signup"]];
-    NSMutableURLRequest * postRequest = [NSMutableURLRequest requestWithURL:url];
-    postRequest.HTTPMethod = @"POST";
-    NSDictionary * bodyDict = @{@"username": self.accountField.text, @"password": self.passwordField.text};
-    NSString * paraString = [NSString stringWithFormat:@"username=%@&password=%@",bodyDict[@"username"], bodyDict[@"password"]];
-    postRequest.HTTPBody = [paraString dataUsingEncoding:NSUTF8StringEncoding];
-    [NSURLConnection sendAsynchronousRequest:postRequest queue:[NSOperationQueue new] completionHandler:^(NSURLResponse * response, NSData * data, NSError * error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        if (error) {
-            NSLog(@"%@", error);
-        }else{
-            NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
-            NSLog(@"%@", httpResponse.allHeaderFields);
-            NSLog(@"%d", httpResponse.statusCode);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.statusLabel.text = [NSString stringWithFormat:@"%d",httpResponse.statusCode];
-            });
-            
-        }
-        
-    }];
+    
+//    NSLog(@"sign up");
+//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//    NSURL *url = [NSURL URLWithString:[AWSServer stringByAppendingString:@"/signup"]];
+//    NSMutableURLRequest * postRequest = [NSMutableURLRequest requestWithURL:url];
+//    postRequest.HTTPMethod = @"POST";
+//    NSDictionary * bodyDict = @{@"username": self.accountField.text, @"password": self.passwordField.text};
+//    NSString * paraString = [NSString stringWithFormat:@"username=%@&password=%@",bodyDict[@"username"], bodyDict[@"password"]];
+//    postRequest.HTTPBody = [paraString dataUsingEncoding:NSUTF8StringEncoding];
+//    [NSURLConnection sendAsynchronousRequest:postRequest queue:[NSOperationQueue new] completionHandler:^(NSURLResponse * response, NSData * data, NSError * error) {
+//        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//        if (error) {
+//            NSLog(@"%@", error);
+//        }else{
+//            NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
+//            NSLog(@"%@", httpResponse.allHeaderFields);
+//            NSLog(@"%d", httpResponse.statusCode);
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.statusLabel.text = [NSString stringWithFormat:@"%d",httpResponse.statusCode];
+//            });
+//            
+//        }
+//        
+//    }];
 //    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
 //    
 //    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -119,6 +122,7 @@
     return YES;
 }
 - (IBAction)signup:(id)sender {
-    [self remoteSignUp];
+//    [self remoteSignUp];
+    [[User currentUser] signupWithAccount:self.accountField.text password:self.passwordField.text confirm:self.repasswordField.text];
 }
 @end

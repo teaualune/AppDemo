@@ -8,8 +8,7 @@
 
 #import "User.h"
 
-#define APIURL @"http://54.235.170.49:4000"
-
+static NSString *APIURL = @"http://54.235.170.49";
 
 @interface User ()
 
@@ -150,11 +149,14 @@ static User *userSingleton;
 
 + (void)requestServerWithMethod: (NSString *)method path: (NSString *)path body: (NSString *)body copmletionHandler: (void (^) (NSInteger statusCode, NSData *data, NSError *error))handler
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[APIURL stringByAppendingString: path]]];
-    if ([method isEqualToString:@"GET"]) {
-    } else if ([method isEqualToString:@"POST"]) {
-        request = [[NSMutableURLRequest alloc] init];
+    NSString *urlString = [APIURL stringByAppendingString:path];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    request.URL = url;
+    if ([method isEqualToString:@"POST"]) {
         request.HTTPMethod = @"POST";
+    } else if ([method isEqualToString:@"DELETE"]) {
+        request.HTTPMethod = @"DELETE";
     }
     if (body != nil) {
         request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
