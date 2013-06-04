@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol LoginEndDelegate <NSObject>
+
+- (void)loginfinish;
+
+@end
+
 @interface LoginViewController : UIViewController
+@property (nonatomic, weak) id<LoginEndDelegate> loginFinishDelegate;
 
 @end

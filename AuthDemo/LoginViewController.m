@@ -8,11 +8,11 @@
 
 #import "LoginViewController.h"
 #import "AFNetworking.h"
+#import "User.h"
 
 
 
-
-@interface LoginViewController ()<UITextFieldDelegate>
+@interface LoginViewController ()<UITextFieldDelegate, LoginDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *editingScrollView;
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -29,6 +29,13 @@
         // Custom initialization
     }
     return self;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"Login view");
+    [[NSNotificationCenter defaultCenter]removeObserver:UIKeyboardDidShowNotification];
+    [[NSNotificationCenter defaultCenter]removeObserver:UIKeyboardDidHideNotification];
 }
 
 - (void)viewDidLoad
@@ -95,7 +102,7 @@
                 NSHTTPCookie *cookie;
                 NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
                 for (cookie in [cookieJar cookies]) {
-                    NSLog(@"cookie (remoteLogin): %@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
+                    NSLog(@"cookie (remoteLogin): %@, %@, %@", cookie.name, cookie.value, cookie.expiresDate);
                 }
             });
 
@@ -113,18 +120,22 @@
     }
     
     if (textField.tag == 11) {
-        [self remoteLogin];
+        //[self remoteLogin];
+        [self login:nil];
         [textField resignFirstResponder];
     }
     return YES;
 }
 - (IBAction)login:(id)sender {
-    [self remoteLogin];
-    NSHTTPCookie *cookie;
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (cookie in [cookieJar cookies]) {
-        NSLog(@"cookie (login): %@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
-    }
+//    [self remoteLogin];
+//    NSHTTPCookie *cookie;
+//    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    NSLog(@"cookieJar:%@",cookieJar);
+//    for (cookie in [cookieJar cookies]) {
+//        NSLog(@"cookie (login): %@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
+//    }
+    [User currentUser].loginDelegate = self;
+    [[User currentUser]loginWithAccount:self.accountField.text password:self.passwordField.text];
 }
 - (IBAction)validateCode:(id)sender {
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Validate" message:@"Please enter validation code" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
@@ -157,7 +168,25 @@
     
 }
 
--(IBAction) backToLoginView:(UIStoryboardSegue *)sender{
-    
+#pragma mark Login delegate
+
+- (void)loginDidSucceed
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.loginFinishDelegate loginfinish];
+    }];
 }
+
+- (void)loginDidFailed: (NSString *)message
+{
+    NSLog(@"message:%@",message);
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)loginDidNeedValidate
+{
+    [self validateCode:nil];
+}
+
 @end

@@ -12,7 +12,7 @@
 #import "User.h"
 
 
-@interface AuthViewController ()
+@interface AuthViewController ()<SignupDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *editingScrollView;
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -123,6 +123,24 @@
 }
 - (IBAction)signup:(id)sender {
 //    [self remoteSignUp];
+    [User currentUser].signupDelegate = self;
     [[User currentUser] signupWithAccount:self.accountField.text password:self.passwordField.text confirm:self.repasswordField.text];
 }
+
+
+#pragma mark Signup delegate
+-(void)signupDidSucceed
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+-(void)signupDidFailed:(NSString *)message
+{
+    NSLog(@"message:%@",message);
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
+
 @end

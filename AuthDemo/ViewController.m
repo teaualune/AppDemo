@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "AFNetworking.h"
+#import "LoginViewController.h"
 
-@interface ViewController ()<UIAlertViewDelegate, UITableViewDataSource>
+@interface ViewController ()<UIAlertViewDelegate, UITableViewDataSource, LoginEndDelegate>
 @property (weak, nonatomic) IBOutlet UIView *inputView;
 @property (strong) NSString * apikey;
 @property (strong) NSArray * loggedMessages;
@@ -43,12 +44,13 @@
 }
 - (void)modifyDisplayLayout:(NSNotification *)note
 {
+    NSLog(@"move");
     CGRect endRect = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGRect originalRect = self.listView.frame;
     
-    
     UIWindow * window = [UIApplication sharedApplication].windows[0];
     CGRect rectInView = [window convertRect:endRect toView:self.view];
+        
     self.inputView.frame = CGRectMake(rectInView.origin.x, rectInView.origin.y-self.inputView.frame.size.height, self.inputView.frame.size.width, self.inputView.frame.size.height);
     
     self.listView.frame = CGRectMake(originalRect.origin.x, originalRect.origin.y, originalRect.size.width, rectInView.origin.y - originalRect.origin.y-self.inputView.frame.size.height);
@@ -61,32 +63,30 @@
 {
     [super viewDidLoad];
     self.loggedMessages = @[@"one",@"two",@"three",@"one",@"two",@"three",@"one",@"two",@"three",@"one",@"two",@"three"];
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidShowNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-//        NSLog(@"%@",note);
-        
-        
-        [self modifyDisplayLayout:note];
-        [self moveToLatestCell];
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-        [self modifyDisplayLayout:note];
-        [self moveToLatestCell];
-    }];
+//    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidShowNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+//        [self modifyDisplayLayout:note];
+//        [self moveToLatestCell];
+//    }];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+//        [self modifyDisplayLayout:note];
+//        [self moveToLatestCell];
+//    }];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)checkAPIKey {
     if (self.apikey == nil || [self.apikey isEqualToString:@""]) {
-        id loginViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
-        [self presentViewController:loginViewController animated:YES completion:nil];
+        LoginViewController* loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        loginVC.loginFinishDelegate = self;
+        [self presentViewController:loginVC animated:YES completion:nil];
     }
 }
 
 -(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     NSHTTPCookie *cookie;
-    
+    NSLog(@"!?");
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (cookie in [cookieJar cookies]) {
         NSLog(@"cookie: %@ %@ %@", cookie.name, cookie.value, cookie.expiresDate);
@@ -103,7 +103,10 @@
     }
 
     [self checkAPIKey];
+
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -163,6 +166,21 @@
     [self postMessage:self.inputField.text];
     [self.inputField resignFirstResponder];
 }
+
+#pragma mark Login view delegate
+-(void)loginfinish
+{
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardDidShowNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self modifyDisplayLayout:note];
+        [self moveToLatestCell];
+    }];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIKeyboardWillHideNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [self modifyDisplayLayout:note];
+        [self moveToLatestCell];
+    }];
+}
+
 
 #pragma mark Table View Data Source
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{

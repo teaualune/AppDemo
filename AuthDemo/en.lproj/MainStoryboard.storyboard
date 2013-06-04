@@ -165,7 +165,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="12345678" borderStyle="roundedRect" minimumFontSize="17" id="pqN-Zc-IPR">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="larry432" borderStyle="roundedRect" minimumFontSize="17" id="pqN-Zc-IPR">
                                         <rect key="frame" x="27" y="155" width="267" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -174,7 +174,7 @@
                                             <outlet property="delegate" destination="Seo-ud-fe3" id="C3o-70-ewf"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="scentsome@gmail.com" borderStyle="roundedRect" minimumFontSize="17" id="fD3-4x-Kbm">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="man27382210@gmail.com" borderStyle="roundedRect" minimumFontSize="17" id="fD3-4x-Kbm">
                                         <rect key="frame" x="27" y="67" width="267" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -366,7 +366,6 @@
         <class className="AuthViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AuthViewController.h"/>
             <relationships>
-                <relationship kind="action" name="signup:"/>
                 <relationship kind="outlet" name="accountField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="editingScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="passwordField" candidateClass="UITextField"/>
@@ -377,8 +376,6 @@
         <class className="LoginViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
             <relationships>
-                <relationship kind="action" name="backToLoginView:" candidateClass="UIStoryboardSegue"/>
-                <relationship kind="action" name="login:"/>
                 <relationship kind="action" name="validateCode:"/>
                 <relationship kind="outlet" name="accountField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="editingScrollView" candidateClass="UIScrollView"/>
